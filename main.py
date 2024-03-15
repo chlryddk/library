@@ -4,16 +4,6 @@ import matplotlib.pyplot as plt
 from loan_total import loan_total_page
 from state import lib_status_result
 
-# import streamlit.commands.v1 as html
-
-# def main_page():
-#     st.header('서울도서관')
-#     with st.sidebar:
-#         choice = option_menu("Menu", ["장서현황", "대출누적", "연령대별 대출누적","인기대출도서","주변도서관위치","챗봇"],
-#                              icons = []
-
-#         )
-
 def main():
     st.set_page_config(layout="wide")
 
