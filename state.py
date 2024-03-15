@@ -17,6 +17,7 @@ def get_new_df():
     return new_df, new_columns
 
 def lib_status(new_df, new_columns):
+    
     # 막대그래프로 그리기
     x = new_columns
     y = new_df.iloc[1].tolist()

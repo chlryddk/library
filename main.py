@@ -1,7 +1,8 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
 import matplotlib.pyplot as plt
-from loan_total import *
+from loan_total import loan_total_page
+from state import lib_status_result
 
 # import streamlit.commands.v1 as html
 
@@ -14,6 +15,7 @@ from loan_total import *
 #         )
 
 def main():
+    st.set_page_config(layout="wide")
 
     with st.sidebar:
         choose = option_menu("Menu",
@@ -21,10 +23,10 @@ def main():
             icons = ["bi bi-list","bi bi-list","bi bi-list","bi bi-list"],
             default_index = 0
         )
-    st.title("서울도서관")
+    # st.title("서울도서관")
 
     if choose == "장서현황":
-        pass
+        lib_status_result()
 
     if choose == "대출누적":
         loan_total_page()
