@@ -27,42 +27,40 @@ def total_chart(loan_total):
     plt.rcParams['font.family'] = 'Malgun Gothic'
 
     def total_2021(df):
-        # 분야 별 책 합계 중 상위 5개 추출
-        df = df.iloc[:,3:-1]
+        #
+        df = df.iloc[:,3:-2]
         last_row = df.iloc[-1]
         sorted_values = last_row.sort_values(ascending=False)
-        top_5_books = sorted_values[:5]
-        top_5_largest = top_5_books.to_frame().transpose()
-        st.dataframe(top_5_largest)
+        sorted_rank = sorted_values.to_frame().transpose()
+        st.dataframe(sorted_rank)
         
         # 파이차트
-        labels = top_5_largest.columns.tolist()
-        sizes = top_5_largest.values.flatten().tolist()
+        labels = sorted_rank.columns.tolist()
+        sizes = sorted_rank.values.flatten().tolist()
         data_series = pd.Series(sizes, index = labels)
 
         fig,ax = plt.subplots(figsize=(3,3))
         ax.pie(data_series, labels = data_series.index, autopct = '%1.1f%%')
-        ax.set_title('2021년도 대출누적이 많은 상위 5개 분야')
+        ax.set_title('2021년도 대출누적 분포')
 
         return fig
         
     def total_2022(df):
-        # 분야 별 책 합계 중 상위 5개 추출
-        df = df.iloc[:,3:-1]
+        #
+        df = df.iloc[:,3:-2]
         last_row = df.iloc[-1]
         sorted_values = last_row.sort_values(ascending=False)
-        top_5_books = sorted_values[:5]
-        top_5_largest = top_5_books.to_frame().transpose()
-        st.dataframe(top_5_largest)
+        sorted_rank = sorted_values.to_frame().transpose()
+        st.dataframe(sorted_rank)
         
         # 파이차트
-        labels = top_5_largest.columns.tolist()
-        sizes = top_5_largest.values.flatten().tolist()
+        labels = sorted_rank.columns.tolist()
+        sizes = sorted_rank.values.flatten().tolist()
         data_series = pd.Series(sizes, index = labels)
 
         fig,ax = plt.subplots(figsize=(3,3))
         ax.pie(data_series, labels = data_series.index, autopct = '%1.1f%%')
-        ax.set_title('2022년도 대출누적이 많은 상위 5개 분야')
+        ax.set_title('2022년도 대출누적 분포')
         return fig
     
     # streamlit에 파이차트 생성
@@ -78,5 +76,6 @@ def total_chart(loan_total):
 
 total_chart(loan_total)
 
+# streamlit 페이지 구성
 def main_page():
     pass
