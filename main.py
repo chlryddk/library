@@ -15,41 +15,68 @@ def get_total_data():
 
         loan_total.append(df) 
 
-    for i in range(len(loan_total)):
-        st.dataframe(loan_total[i])
+    # for i in range(len(loan_total)):
+    #     st.dataframe(loan_total[i])
 
     return loan_total
 
 loan_total = get_total_data()
 
-# 각 분야별 대출통계 데이터셋 시각화(파이차트)
+# 각 분야별 대출통계 데이터셋 시각화
 def total_chart(loan_total):
+    plt.rcParams['font.family'] = 'Malgun Gothic'
+
     def total_2021(df):
         # 분야 별 책 합계 중 상위 5개 추출
         df = df.iloc[:,3:-1]
         last_row = df.iloc[-1]
         sorted_values = last_row.sort_values(ascending=False)
-        top_5_largest_value = sorted_values[:5]
-        # sorted_values = last_row.drop(last_row.columns[0,1,2],axis=1)
-        st.dataframe(top_5_largest_value)
-        # sorted_values = last_row.sort_values(ascending=False)
-        # top_5_largest_values = sorted_values[:5]
-        # st.dataframe(top_5_largest_values)
+        top_5_books = sorted_values[:5]
+        top_5_largest = top_5_books.to_frame().transpose()
+        st.dataframe(top_5_largest)
         
-        return top_5_largest_value
+        # 파이차트
+        labels = top_5_largest.columns.tolist()
+        sizes = top_5_largest.values.flatten().tolist()
+        data_series = pd.Series(sizes, index = labels)
 
+        fig,ax = plt.subplots(figsize=(3,3))
+        ax.pie(data_series, labels = data_series.index, autopct = '%1.1f%%')
+        ax.set_title('2021년도 대출누적이 많은 상위 5개 분야')
+
+        return fig
         
-
     def total_2022(df):
-        pass
+        # 분야 별 책 합계 중 상위 5개 추출
+        df = df.iloc[:,3:-1]
+        last_row = df.iloc[-1]
+        sorted_values = last_row.sort_values(ascending=False)
+        top_5_books = sorted_values[:5]
+        top_5_largest = top_5_books.to_frame().transpose()
+        st.dataframe(top_5_largest)
+        
+        # 파이차트
+        labels = top_5_largest.columns.tolist()
+        sizes = top_5_largest.values.flatten().tolist()
+        data_series = pd.Series(sizes, index = labels)
 
+        fig,ax = plt.subplots(figsize=(3,3))
+        ax.pie(data_series, labels = data_series.index, autopct = '%1.1f%%')
+        ax.set_title('2022년도 대출누적이 많은 상위 5개 분야')
+        return fig
+    
+    # streamlit에 파이차트 생성
+    chart_2021 = total_2021(loan_total[0])
+    chart_2022 = total_2022(loan_total[1])
 
+    col1, col2 = st.columns(2)
+    with col1:
+         st.pyplot(chart_2021)
+    with col2:
+         st.pyplot(chart_2022)
 
-    total_2021(loan_total[0])
-    total_2022(loan_total[1])
 
 total_chart(loan_total)
-
 
 def main_page():
     pass
