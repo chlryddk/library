@@ -3,6 +3,8 @@ from streamlit_option_menu import option_menu
 import matplotlib.pyplot as plt
 from loan_total import loan_total_page
 from state import lib_status_result
+from test import prefer
+
 
 def main():
     st.set_page_config(layout="wide")
@@ -25,7 +27,8 @@ def main():
         pass
 
     if choose == "인기대출도서":
-        pass
+        prefer()
+        
 
 
 if __name__ == "__main__":
