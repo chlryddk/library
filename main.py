@@ -1,6 +1,5 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
-from loan_total import loan_total_page
 from state import lib_status_result
 from test import prefer
 
